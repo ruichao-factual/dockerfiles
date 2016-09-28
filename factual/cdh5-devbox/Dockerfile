@@ -39,7 +39,7 @@ RUN chmod 755 /bin/lein
 
 #thrift
 ENV THRIFT_VERSION=0.9.2
-ADD http://apache.fayea.com/thrift/$THRIFT_VERSION/thrift-$THRIFT_VERSION.tar.gz .
+ADD http://www.apache.org/dist/thrift/$THRIFT_VERSION/thrift-$THRIFT_VERSION.tar.gz .
 RUN tar xzf thrift-$THRIFT_VERSION.tar.gz && cd thrift-$THRIFT_VERSION && ./configure --without-ruby --without-cpp --without-nodejs --without-python && make install
 RUN rm -rf thrift-$THRIFT_VERSION*
 
