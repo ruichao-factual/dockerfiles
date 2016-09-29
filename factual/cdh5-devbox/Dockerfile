@@ -1,4 +1,4 @@
-FROM ruichaoxue/cdh5-dev
+FROM benmayne/docker-cdh5-dev
 
 RUN rm -f /etc/service/sshd/down
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
@@ -25,6 +25,18 @@ RUN echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.lis
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
 RUN apt-get update
 RUN apt-get install sbt
+
+# ruby && rvm && bundler
+# ref https://rvm.io/rvm/install
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
+RUN /bin/bash -l -c "rvm requirements"
+RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
+
+# nodejs && npm
+# ref https://nodejs.org/en/download/package-manager
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+RUN sudo apt-get install -y nodejs
 
 #cleanup
 RUN apt-get clean
